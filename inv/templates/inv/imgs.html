@@ -1,0 +1,136 @@
+{% extends "inv/base.html" %}
+{% load static %}
+
+{% block nav-home %}active{% endblock %}
+
+{% block title %}
+    Wolbach Devices Inventory
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h1>{{item.name}}</h1> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <h3>Barcode: {{item.barcode}}</h3>
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-warning">Modify Item</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <BR/><br/>
+
+            <img width="100%" src="{% get_static_prefix %}dev/img/{{item.name.name}}.jpg" alt="" />
+        </div>
+        <div class="col-6">
+            
+            <br/><br/>
+
+            <b>Where to Store it:</b><br/>
+            {{item.location}}
+
+            <br/><br/>
+
+            <b>Notes:</b><BR/>
+            {{item.notes}}
+
+            <br/><br/>
+
+            <b>Components:</b><BR/>
+                <ul>
+                    {% for tag in item.components.all %}
+                        <li>{{tag}}</li>
+                    {% endfor %}
+                </ul>
+
+            <br/><br/>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-9">
+
+            <BR/><BR/>
+            
+            <table class="table">
+                <tr>
+                    <th>Things to Clean:
+                    </th>
+                    <th>Things to Check:
+                    </th>
+                </tr>
+                <tr>
+                    <td width=40%>
+                        <ul>
+                            {% for tag in item.cleaning.all %}
+                                <li>{{tag}}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>   
+                        <ul>
+                            {% for tag in item.checking.all %}
+                                <li>{{tag}}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <br/>
+            <form action="{% url 'check_in' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <table>
+                        <tr>
+                            <td width="50%">
+                                <input type="radio" name="status" value="ok" checked>
+                                <label for="vehicle1"> Ok</label>
+                            </td>
+                            <td>
+                                <input type="radio" name="status" value="missing">
+                                <label for="vehicle2"> Missing components</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="status" value="lost">
+                                <label for="vehicle3"> Lost Device</label>
+                            </td>
+                            <td>
+                                <input type="radio" name="status" value="damaged">
+                                <label for="vehicle3"> Damaged</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="itemid" value="{{item.id}}">
+                    <button type="submit" class="btn btn-primary">Check in</button>
+                </div>
+            </form>
+
+            <BR/><BR/>
+            
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

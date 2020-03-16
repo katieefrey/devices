@@ -1,0 +1,87 @@
+{% extends "inv/base.html" %}
+{% load static %}
+
+{% block nav-home %}active{% endblock %}
+
+{% block title %}
+    Wolbach Devices Inventory
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h1>{{item.name}}</h1> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5">
+            <h3>Barcode: {{item.barcode}}</h3>
+        </div>
+        <div class="col-3">
+            <button type="submit" class="btn btn-warning">Modify Item</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <BR/><br/>
+
+            <img width="100%" src="{% get_static_prefix %}dev/img/{{item.name.name}}.jpg" alt="" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            {% if state == "ok" %}
+            item all good!
+
+            {% elif state == "missing" %}
+
+            <b>Which component(s) are missing?</b><BR/>
+            <form action="{% url 'check_in' %}" method="post">
+                {% csrf_token %}
+                {% for tag in item.components.all %}
+                    <input type="checkbox" name="{{tag}}" value="{{tag}}">
+                    <label for="{{tag}}"> {{tag}}</label><br/>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Mark components(s) as missing</button>
+            </form>
+
+            {% elif state == "damaged" %}
+
+            <b>Describe the damage:</b><BR/>
+            <form action="{% url 'check_in' %}" method="post">
+                {% csrf_token %}
+                <textarea name="damagedesc" rows="6" cols="50"></textarea>
+                <br/>
+                <button type="submit" class="btn btn-primary">Submit damage report</button>
+            </form>
+
+
+            {% elif state == "lost" %}
+            <form action="{% url 'check_in' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Confirm lost device</button>
+            </form>
+
+            {% else %}
+            
+            {% endif %}            
+
+            <br/>
+            <form action="{% url 'item_view' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="inputBarcode" value="{{item.barcode}}">
+                <button type="submit" class="btn btn-secondary">Back to Item</button>
+            </form>
+            
+            
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

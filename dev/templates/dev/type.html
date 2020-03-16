@@ -1,0 +1,335 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Wolbach Library Devices: TYPE</title>
+
+    <!-- Behavioral Meta Data -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="{% static 'dev/img/small-logo-01.png' %}">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href="{% static 'dev/css/devices.css' %}" rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <a name="ancre"></a>
+
+    <!-- CACHE -->
+    <div class="cache"></div>
+
+    <!-- header -->
+    <!-- HEADER -->
+
+    <div id="wrapper-header">
+        <div id="main-header" class="object">
+            <a href="/">
+                <div id="logo"><img src="{% static 'dev/img/logo.png' %}" alt="logo" height="46" width="448"></div>
+            </a>
+            <div id="main_tip_search">
+                <b><button onClick="parent.location='http://library.cfa.harvard.edu'"; class="bbutton bbutton1">Back to Wolbach Library</button></b>
+            </div>
+            <div id="stripes"></div>
+        </div>
+    </div>
+    </div>
+
+    <!-- NAVBAR -->
+
+    <div id="wrapper-navbar">
+        <div class="navbar object">
+            <div id="wrapper-sorting">
+
+                {% for x in types %}
+                <div id="wrapper-title-1">
+                    {% if x.objtype == objtype %}
+                    <div id="fleche-nav"><img src="{% get_static_prefix %}dev/img/{{x.objtype}}-s.png"></div>
+                    <a href="/type/{{x.objtype}}">
+                        <div class="current-index object">{{x.name}}</div>
+                    </a>
+                    {% else %}
+                    <div id="fleche-nav"><img src="{% get_static_prefix %}dev/img/{{x.objtype}}-s.png"></div>
+                    <a href="/type/{{x.objtype}}">
+                        <div class="other-index object">{{x.name}}</div>
+                    </a>
+
+                    {% endif %}
+
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FILTER -->
+
+    <div id="main-container-menu" class="object">
+        <div class="container-menu">
+
+            <div id="main-cross">
+                <div id="cross-menu"></div>
+            </div>
+
+            {% for x in types %}
+
+            <div id="main-premium-ressource">
+                <div class="premium-ressource"><a href="/type/{{x.object}}">{{x.name}}</a></div>
+            </div>
+            {%endfor%}
+            <div id="main-premium-ressource">
+                <br/>
+                <hr width="100" />
+                <br/>
+                <div class="premium-ressource"><a href="http://library.cfa.harvard.edu">Wolbach Library</a></div>
+            </div>
+            <div id="main-premium-ressource">
+                <div class="premium-ressource"><a href="http://devices.altbibl.io/files/LibraryDevicesPolicy.pdf">Device Liability Policy</a></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PORTFOLIO -->
+
+    <div id="wrapper-container">
+        <div class="container object">
+            <div id="main-container-image">
+                <section class="work">
+
+                    {% for y in devices %}
+                    <figure class="white">
+                        <a href="../{{y.name}}">
+                            <img src="{% get_static_prefix %}dev/img/{{y.name}}.jpg" alt="" />
+                            <dl>
+                                <dt>{{y.fullname}}</dt>
+                                <dd>{{y.shortdesc}}</dd>
+                            </dl>
+                        </a>
+                        <div id="wrapper-part-info">
+                            <div class="part-info-image1"><img src="{% get_static_prefix %}dev/img/{{y.objtype.objtype}}-s.png" alt="" width="28" height="28" /></div>
+                            <div id="part-info">{{y.fullname}}</div>
+                        </div>
+                    </figure>
+                    {% endfor %}
+
+                </section>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div id="main-container-footer">
+
+            <div id="wrapper-copyright">
+                <div class="copyright">
+                    <div class="copy-text object">Copyright © 2016. <a style="color:#ffffff;" href="/credit">Acknowledgements</a>. <a style="color:#ffffff;" href="https://library.cfa.harvard.edu/files/wolbach/files/librarydevicespolicy.pdf">Device Liability Policy</a>.</div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- SCRIPT -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'dev/js/jquery.scrollTo.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dev/js/jquery.localScroll.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dev/js/jquery-animate-css-rotate-scale.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dev/js/fastclick.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dev/js/jquery.animate-colors-min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'dev/js/jquery.animate-shadow-min.js' %}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.localScroll();
+            $(".cache").delay(500).fadeOut(520);
+            $("#wrapper-header").delay(750).animate({
+                opacity: '1',
+                width: '100%'
+            }, 250);
+            $("#wrapper-navbar").delay(1000).animate({
+                opacity: '1',
+                height: '60px'
+            }, 250);
+            $("#main-container-image").delay(1250).animate({
+                opacity: '1'
+            }, 250);
+
+        });
+
+        /*TRANSITION PAGE*/
+
+        var speed = 'slow';
+
+        $('html, body').hide();
+
+        $(document).ready(function() {
+            $('html, body').fadeIn(speed, function() {
+                $('a[href], button[href]').click(function(event) {
+                    var url = $(this).attr('href');
+                    if (url.indexOf('#') == 0 || url.indexOf('javascript:') == 0) return;
+                    event.preventDefault();
+                    $('html, body').fadeOut(speed, function() {
+                        window.location = url;
+                    });
+                });
+            });
+        });
+
+        /* DISABLE HOVER EFFECT WHILE YOU SCROLL FOR A SMOOTHY NAVIGATION */
+
+        var body = document.body,
+            timer;
+
+        window.addEventListener('scroll', function() {
+
+            clearTimeout(timer);
+
+            if (!body.classList.contains('disable-hover'))
+                body.classList.add('disable-hover')
+
+            timer = setTimeout(function() {
+                body.classList.remove('disable-hover')
+            }, 200);
+
+        }, false);
+
+        /* BOUTON MENU */
+
+        $(document).on('touchstart mouseover', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1.2',
+                    opacity: '0.5'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        $(document).on('touchend mouseout', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1',
+                    opacity: '1'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        /* MENU SIDE OPEN */
+
+        var MENUSIDEOPEN = document.getElementById('stripes');
+
+        MENUSIDEOPEN.addEventListener('click', function() {
+            $("#main-container-menu").stop().animate({
+                left: '0'
+            }, 300);
+        });
+
+        /* BOUTON CROSS */
+
+        $(document).on('touchstart mouseover', '#cross-menu', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#cross-menu").stop().animate({
+                    scale: '1.2',
+                    opacity: '0.5'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        $(document).on('touchend mouseout', '#cross-menu', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#cross-menu").stop().animate({
+                    scale: '1',
+                    opacity: '1'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        /* MENU SIDE CLOSE */
+
+        var MENUSIDECLOSE = document.getElementById('cross-menu');
+
+        MENUSIDECLOSE.addEventListener('click', function() {
+            $("#main-container-menu").stop().animate({
+                'left': '-100%'
+            }, 300);
+        });
+
+        /* BOUTON MENU */
+
+        $(document).on('touchstart mouseover', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1.2',
+                    opacity: '0.5'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        $(document).on('touchend mouseout', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1',
+                    opacity: '1'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+    </script>
+</body>
+
+</html>

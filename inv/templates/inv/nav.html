@@ -1,0 +1,69 @@
+<!-- HEADER -->
+
+<div id="wrapper-header">
+    <div id="main-header" class="object">
+        <a href="/">
+            <div id="logo"><img src="../img/logo.png" alt="logo" height="46" width="448"></div>
+        </a>
+        <div id="main_tip_search">
+            <b><button onClick="parent.location='http://library.cfa.harvard.edu'"; class="bbutton bbutton1">Back to Wolbach Library</button></b>
+        </div>
+        <div id="stripes"></div>
+    </div>
+</div>
+</div>
+
+<!-- NAVBAR -->
+
+<div id="wrapper-navbar">
+    <div class="navbar object">
+        <div id="wrapper-sorting">
+
+            {% set iternum = 0 %} {% for k,v in objdict.items() %} {% set iternum = iternum +1 %}
+            <div id="wrapper-title-{{iternum}}">
+                {% if k == objtype %}
+                <div id="fleche-nav"><img src="/img/{{k}}-s.png"></div>
+                <a href="/type/{{k}}">
+                    <div class="current-index object">{{v}}</div>
+                </a>
+                {%else%}
+                <div id="fleche-nav"><img src="/img/{{k}}-s.png"></div>
+                <a href="/type/{{k}}">
+                    <div class="other-index object">{{v}}</div>
+                </a>
+
+                {%endif%}
+
+            </div>
+            {%endfor%}
+
+        </div>
+    </div>
+</div>
+
+<!-- FILTER -->
+
+<div id="main-container-menu" class="object">
+    <div class="container-menu">
+
+        <div id="main-cross">
+            <div id="cross-menu"></div>
+        </div>
+
+        {% for k,v in objdict.items() %}
+
+        <div id="main-premium-ressource">
+            <div class="premium-ressource"><a href="/type/{{k}}">{{v}}</a></div>
+        </div>
+        {%endfor%}
+        <div id="main-premium-ressource">
+            <br/>
+            <hr width="100" />
+            <br/>
+            <div class="premium-ressource"><a href="http://library.cfa.harvard.edu">Wolbach Library</a></div>
+        </div>
+        <div id="main-premium-ressource">
+            <div class="premium-ressource"><a href="http://devices.altbibl.io/files/LibraryDevicesPolicy.pdf">Device Liability Policy</a></div>
+        </div>
+    </div>
+</div>

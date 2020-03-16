@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Wolbach Library Devices</title>
+
+    <!-- Behavioral Meta Data -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="../img/small-logo-01.png">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='/css/devices.css' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <a name="ancre"></a>
+
+    <!-- CACHE -->
+    <div class="cache"></div>
+
+    <!-- header -->
+    {% include "nav.html" %}
+
+    <!-- PORTFOLIO -->
+
+    <div id="wrapper-container">
+        <div class="container object">
+            <div id="main-container-image">
+
+                <section class="bodytext">
+                    <div class="post-reply">
+                        <div class="text-reply-post">
+                            <h1>Acknowledgements</h1> Website template by <a style="color:#a1a1a1;" href="http://designscrazed.org/">Dcrazed</a>.
+                            <br/>
+                            <br/>
+                            <img src="img/external-link.png" alt="" /> External Link icon by Laurent Canivet from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/construction-s.png" alt="" /> Lego icon by CombineDesign from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/maker-s.png" alt="" /> Integrated Circuit icon by Vectors Market from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/vr-s.png" alt="" /> Oculus Rift icon by Boudewijn Mijnlieff from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/computer-s.png" alt="" /> Laptop icon by Daniel Llamas Soto from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/av-s.png" alt="" /> Headphones icon by Sabine Wollender from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/tools-s.png" alt="" /> Tools icon by Aha-Soft from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/optics-s.png" alt="" /> Telescope icon by parkjisun from the Noun Project.
+                            <br/>
+                            <br/>
+                            <img src="img/controller-s.png" alt="" /> Remote Control icon by Creative Stall from the Noun Project.
+                            <br/>
+                            <br/>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- footer -->
+        {% include "foot.html" %}
+
+    </div>
+
+    <!-- SCRIPT -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="js/jquery.localScroll.min.js"></script>
+    <script type="text/javascript" src="js/jquery-animate-css-rotate-scale.js"></script>
+    <script type="text/javascript" src="js/fastclick.min.js"></script>
+    <script type="text/javascript" src="js/jquery.animate-colors-min.js"></script>
+    <script type="text/javascript" src="js/jquery.animate-shadow-min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.localScroll();
+            $(".cache").delay(500).fadeOut(250);
+            $("#wrapper-header").delay(750).animate({
+                opacity: '1',
+                width: '100%'
+            }, 250);
+            $("#wrapper-navbar").delay(1000).animate({
+                opacity: '1',
+                height: '60px'
+            }, 250);
+            $("#main-container-image").delay(1250).animate({
+                opacity: '1'
+            }, 250);
+
+        });
+
+        /*TRANSITION PAGE*/
+
+        var speed = 'slow';
+
+        $('html, body').hide();
+
+        $(document).ready(function() {
+            $('html, body').fadeIn(speed, function() {
+                $('a[href], button[href]').click(function(event) {
+                    var url = $(this).attr('href');
+                    if (url.indexOf('#') == 0 || url.indexOf('javascript:') == 0) return;
+                    event.preventDefault();
+                    $('html, body').fadeOut(speed, function() {
+                        window.location = url;
+                    });
+                });
+            });
+        });
+
+        /* DISABLE HOVER EFFECT WHILE YOU SCROLL FOR A SMOOTHY NAVIGATION */
+
+        var body = document.body,
+            timer;
+
+        window.addEventListener('scroll', function() {
+
+            clearTimeout(timer);
+
+            if (!body.classList.contains('disable-hover'))
+                body.classList.add('disable-hover')
+
+            timer = setTimeout(function() {
+                body.classList.remove('disable-hover')
+            }, 200);
+
+        }, false);
+
+        /* BOUTON MENU */
+
+        $(document).on('touchstart mouseover', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1.2',
+                    opacity: '0.5'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        $(document).on('touchend mouseout', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1',
+                    opacity: '1'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        /* MENU SIDE OPEN */
+
+        var MENUSIDEOPEN = document.getElementById('stripes');
+
+        MENUSIDEOPEN.addEventListener('click', function() {
+            $("#main-container-menu").stop().animate({
+                left: '0'
+            }, 300);
+        });
+
+        /* BOUTON CROSS */
+
+        $(document).on('touchstart mouseover', '#cross-menu', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#cross-menu").stop().animate({
+                    scale: '1.2',
+                    opacity: '0.5'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        $(document).on('touchend mouseout', '#cross-menu', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#cross-menu").stop().animate({
+                    scale: '1',
+                    opacity: '1'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        /* MENU SIDE CLOSE */
+
+        var MENUSIDECLOSE = document.getElementById('cross-menu');
+
+        MENUSIDECLOSE.addEventListener('click', function() {
+            $("#main-container-menu").stop().animate({
+                'left': '-100%'
+            }, 300);
+        });
+
+        /* BOUTON MENU */
+
+        $(document).on('touchstart mouseover', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1.2',
+                    opacity: '0.5'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+
+        $(document).on('touchend mouseout', '#stripes', function(event) {
+
+            event.stopPropagation();
+            event.preventDefault();
+            if (event.handled !== true) {
+
+                $("#stripes").stop().animate({
+                    scale: '1',
+                    opacity: '1'
+                }, 300);
+
+                event.handled = true;
+            } else {
+                return false;
+            }
+        });
+    </script>
+</body>
+
+</html>

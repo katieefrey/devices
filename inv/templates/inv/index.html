@@ -1,0 +1,84 @@
+{% extends "inv/base.html" %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block nav-home %}active{% endblock %}
+
+{% block title %}
+    Wolbach Devices Inventory
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <br/>
+        <h3>Welcome to Wolbach Inventory</h3>
+        <br/>
+
+        <div class="row">
+
+
+    {% if state == "login" %}
+
+
+            <div class="col-4">
+
+                {% if error != "" %}
+                <div class="alert alert-danger" role="alert">
+                    {{error | safe}}
+                </div>
+                {% endif %}
+
+                <form action="{% url 'login_view' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="inputUsername">Username</label>
+                        <input type="username" class="form-control" id="inputUsername" name="inputUsername" placeholder="Enter Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password">
+                        <small id="userHelp" class="form-text text-muted">Username and Password are case sensitive.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <br/> To get an account, ask Katie.
+
+            </div>
+
+
+    {% elif state == "loggedin" %}
+
+                <div class="col-4">
+
+                    {% if error != "" %}
+                    <div class="alert alert-danger" role="alert">
+                        {{error | safe}}
+                    </div>
+                    {% endif %}
+
+                    <form action="{% url 'item_view' %}" method="post">
+                        {% csrf_token %}
+                            {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+    {% else %}
+
+                <div class="col-8">
+                    <a href="/inv/login">Login</a> to check inveotry or add a new device!<br><br>
+                    Even though you aren't logged in, you can still <a href="/">view our devices</a>.<br><br>
+
+                </div>
+
+    {% endif %}
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Wolbach Library Devices{% block title %}{% endblock %}</title>
+
+    <!-- Behavioral Meta Data -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="../img/small-logo-01.png">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,900,900italic,700italic,700,500italic,400italic,500,300italic,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href="{% static 'dev/css/devices.css' %}" rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <a name="ancre"></a>
+
+    <!-- CACHE -->
+    <div class="cache"></div>
+
+
+    <!-- HEADER -->
+
+    <div id="wrapper-header">
+        <div id="main-header" class="object">
+            <a href="/">
+                <div id="logo"><img src="{% static 'dev/img/logo.png' %}" alt="logo" height="46" width="448"></div>
+            </a>
+            <div id="main_tip_search">
+                <b><button onClick="parent.location='http://library.cfa.harvard.edu'"; class="bbutton bbutton1">Back to Wolbach Library</button></b>
+            </div>
+            <div id="stripes"></div>
+        </div>
+    </div>
+    </div>
+
+    <!-- FILTER -->
+
+    <div id="main-container-menu" class="object">
+        <div class="container-menu">
+
+            <div id="main-cross">
+                <div id="cross-menu"></div>
+            </div>
+
+
+
+            <div id="main-premium-ressource">
+                <div class="premium-ressource"><a href="/type/{{k}}">{{v}}</a></div>
+            </div>
+
+            <div id="main-premium-ressource">
+                <br/>
+                <hr width="100" />
+                <br/>
+                <div class="premium-ressource"><a href="http://library.cfa.harvard.edu">Wolbach Library</a></div>
+            </div>
+            <div id="main-premium-ressource">
+                <div class="premium-ressource"><a href="http://devices.altbibl.io/files/LibraryDevicesPolicy.pdf">Device Liability Policy</a></div>
+            </div>
+        </div>
+    </div>
+
+
+    {% block body %}
+    {% endblock %}  
+
+    <div id="main-container-footer">
+
+    <div id="wrapper-copyright">
+        <div class="copyright">
+            <div class="copy-text object">Copyright © 2016. <a style="color:#ffffff;" href="/credit">Acknowledgements</a>. <a style="color:#ffffff;" href="https://library.cfa.harvard.edu/files/wolbach/files/librarydevicespolicy.pdf">Device Liability Policy</a>.</div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>
