@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import Item
-from .forms import BarcodeForm, ModifyDevice
+from .forms import BarcodeForm, ModifyDevice, DevComp, DevCheck, DevClean, DevLoc
 from dev.models import Device, ObjType
 
 
@@ -73,13 +73,14 @@ def logout_view(request):
 
 def barcode(request,barcode):
     context = {}
+    print("barcode?")
     return render(request,"inv/type.html",context)
 
 
 # view a device and its components
 def item_view(request):
     barcode = request.POST["inputBarcode"]
-    print(barcode)
+
         #if they are NOT loggedin...
     if not request.user.is_authenticated:
         context = {
@@ -141,11 +142,8 @@ def modify(request):
 
 
     comps = request.POST.getlist('components')
-    print(comps)
-    for x in comps:
-        print(x)
-
-
+    checks = request.POST.getlist('checking')
+    cleans = request.POST.getlist('cleaning')
 
     itemid = request.POST["itemid"]
 
@@ -156,18 +154,69 @@ def modify(request):
             }
         return render(request, "inv/index.html", context)
 
+
     try:
 
         item = Item.objects.get(id=itemid)
 
-        form = ModifyDevice()
+        form = ModifyDevice(instance=Item.objects.get(id=itemid))
+        compform = DevComp(instance=Item.objects.get(id=itemid))
+        cleanform = DevClean(instance=Item.objects.get(id=itemid))
+        checkform = DevCheck(instance=Item.objects.get(id=itemid))
+        locform = DevLoc(instance=Item.objects.get(id=itemid))
 
         context = {
             "item" : item,
             "form" : form,
+            "compform" : compform,
+            "cleanform" : cleanform,
+            "checkform" : checkform,
+            "locform" : locform,
         }
 
         return render(request, "inv/modify.html", context)
+
+
+    except Item.DoesNotExist:
+
+        context = {
+            "state": "loggedin",
+            "error": "Item "+barcode+" not found, try again."
+            }
+        return render(request, "inv/index.html", context)
+
+def update(request):
+
+    comps = request.POST.getlist('components')
+    checks = request.POST.getlist('checking')
+    cleans = request.POST.getlist('cleaning')
+
+    itemid = request.POST["itemid"]
+    barcode = request.POST["inputBarcode"]
+
+    if not request.user.is_authenticated:
+        context = {
+            "state": "home",
+            "error": "Please login and try again."
+            }
+        return render(request, "inv/index.html", context)
+
+    #otherwise, if they are logged in...
+    username = request.user
+    userid = username.id
+
+    try:
+
+        item = Item.objects.get(barcode=barcode)
+
+        print("this reverse works?")
+        context = {
+            "item" : item
+        }
+
+        return render(request, "inv/item.html", context)
+        #return HttpResponseRedirect(reverse("item_view"))
+        #return HttpResponseRedirect('batch/%s' % batchid)
 
 
     except Item.DoesNotExist:

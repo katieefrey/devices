@@ -10,5 +10,6 @@ urlpatterns = [
     path("item_view", views.item_view, name="item_view"),
     path("check_in", views.check_in, name="check_in"), # not being used
     path("modify", views.modify, name="modify"),
-    path('<barcode>', views.barcode, name='barcode'),   
+    path("update", views.update, name="update"),
+    #path('<int:barcode>', views.barcode, name='barcode'),   
 ]

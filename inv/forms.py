@@ -20,15 +20,70 @@ class ModifyDevice(ModelForm):
         super(ModifyDevice, self).__init__(*args, **kwargs)
         
         self.fields["components"].widget = CheckboxSelectMultiple()
-        self.fields["components"].queryset = Component.objects.all()
+        #self.fields["components"].queryset = Component.objects.all()
         self.fields["cleaning"].widget = CheckboxSelectMultiple()
-        self.fields["cleaning"].queryset = Cleaning.objects.all()
+        #self.fields["cleaning"].queryset = Cleaning.objects.all()
         self.fields["checking"].widget = CheckboxSelectMultiple()
-        self.fields["checking"].queryset = Checking.objects.all()
+        #self.fields["checking"].queryset = Checking.objects.all()
+    
+
+class DevComp(ModelForm):
+    
+    class Meta:
+        model = Item
+        fields = ("components",)
+             
+    def __init__(self, *args, **kwargs):
+        
+        super(DevComp, self).__init__(*args, **kwargs)
+        
+        self.fields["components"].widget = CheckboxSelectMultiple()
+
+
+class DevClean(ModelForm):
+    
+    class Meta:
+        model = Item
+        fields = ("cleaning",)
+             
+    def __init__(self, *args, **kwargs):
+        
+        super(DevClean, self).__init__(*args, **kwargs)
+        
+        self.fields["cleaning"].widget = CheckboxSelectMultiple()
     
 
 
+class DevCheck(ModelForm):
+    
+    class Meta:
+        model = Item
+        fields = ("checking",)
+             
+    def __init__(self, *args, **kwargs):
+        
+        super(DevCheck, self).__init__(*args, **kwargs)
+        
+        self.fields["checking"].widget = CheckboxSelectMultiple()
+    
+    
 
+class DevLoc(ModelForm):
+    
+    class Meta:
+        model = Item
+        fields = ("location",)
+             
+    # def __init__(self, *args, **kwargs):
+        
+    #     super(DevLoc, self).__init__(*args, **kwargs)
+        
+    #     self.fields["components"].widget = CheckboxSelectMultiple()
+    #     #self.fields["components"].queryset = Component.objects.all()
+    #     self.fields["cleaning"].widget = CheckboxSelectMultiple()
+    #     #self.fields["cleaning"].queryset = Cleaning.objects.all()
+    #     self.fields["checking"].widget = CheckboxSelectMultiple()
+    #     #self.fields["checking"].queryset = Checking.objects.all()
 
 
 # class ModifyDevice(forms.Form):

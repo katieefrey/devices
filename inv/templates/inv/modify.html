@@ -22,10 +22,10 @@
             <h3>Barcode: {{item.barcode}}</h3>
         </div>
         <div class="col-3">
-            <form action="{% url 'modify' %}" method="post">
+            <form action="{% url 'item_view' %}" method="post">
                 {% csrf_token %}
-                <input type="hidden" name="itemid" value="{{item.id}}">
-                <button type="submit" class="btn btn-warning">Modify Item</button>
+                <input type="hidden" name="inputBarcode" value="{{item.barcode}}">
+                <button type="submit" class="btn btn-warning">Cancel Modify</button>
             </form>
         </div>
     </div>
@@ -46,6 +46,7 @@
                 <img src="{{ uploaded_file_url }}"/>
 
             {% endif %}
+
             <img  width="100%" src="{% get_media_prefix %}{{item.name.name}}.jpg"/>
             <!--<img width="100%" src="{% get_static_prefix %}dev/img/{{item.name.name}}.jpg" alt="" />-->
         </div>
@@ -53,112 +54,60 @@
             
             <br/>
 
-            <b>Components:</b><BR/>
-                <ul>
-                    {% for tag in item.components.all %}
-                        <li>{{tag}}</li>
-                    {% endfor %}
-                </ul>
 
-            <br/><br/>
-
-            <b>Things to Check:</b>
-            <ul>
-                {% for tag in item.checking.all %}
-                    <li>{{tag}}</li>
-                {% endfor %}
-            </ul>
         </div>
 
     </div>
 
-    <div class="row">
-        <div class="col-9">
 
-            <BR/><BR/>
-            
-            <table class="table">
-                <tr>
-                    <th>Things to Clean:
-                    </th>
-                    <th>Where to Store it:
-                    </th>
-                </tr>
-                <tr>
-                    <td width=40%>
-                        <ul>
-                            {% for tag in item.cleaning.all %}
-                                <li>{{tag}}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td>   
-                        {{item.location}}
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan=2>Notes:
-                    </th>
-                </tr>
-                <tr>
-                    <td colspan=2>
-                        {{item.notes}}
-                    </td>
-                </tr>
-            </table>
-
-            <br/><br/>
-
-            <form action="{% url 'modify' %}" method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <input type="hidden" name="itemid" value="{{item.id}}">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-
-
-<!--
     <div class="row">
         <div class="col-12">
             <br/>
-            <form action="{% url 'check_in' %}" method="post">
+            <form action="{% url 'update' %}" method="post">
                 {% csrf_token %}
-                <div class="form-group">
-                    <table>
-                        <tr>
-                            <td width="50%">
-                                <input type="radio" name="status" value="ok" checked>
-                                <label for="vehicle1"> Ok</label>
-                            </td>
-                            <td>
-                                <input type="radio" name="status" value="missing">
-                                <label for="vehicle2"> Missing components</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="radio" name="status" value="lost">
-                                <label for="vehicle3"> Lost Device</label>
-                            </td>
-                            <td>
-                                <input type="radio" name="status" value="damaged">
-                                <label for="vehicle3"> Damaged</label>
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" name="itemid" value="{{item.id}}">
-                    <button type="submit" class="btn btn-primary">Check in</button>
-                </div>
-            </form>
 
-            <BR/><BR/>
-            
+                <div class="form-row">
+
+                    <div class="form-group col-md-3">
+                        {{ compform|crispy }}
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        {{ checkform|crispy }}
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        {{ cleanform|crispy }}
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    {{ locform|crispy }}
+
+                </div>
+                <input type="hidden" name="inputBarcode" value="{{item.barcode}}">
+                <input type="hidden" name="itemid" value="{{item.id}}">
+                <button type="submit" class="btn btn-primary">Submit</button>
 
         </div>
     </div>
--->
+
+
+    <div class="row">
+        <div class="col-12">
+            &nbsp;<br/>
+            &nbsp;<br/>
+            &nbsp;<br/>
+        </div>
+    </div>
+
+
+
+
+
+
+
 
 </div>
 
