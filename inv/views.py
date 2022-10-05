@@ -135,6 +135,7 @@ def modify(request):
 
 
     itemid = request.POST["itemid"]
+<<<<<<< HEAD
 
     if not request.user.is_authenticated:
         context = {
@@ -202,6 +203,8 @@ def add_dev(request):
 
 
     # itemid = request.POST["itemid"]
+=======
+>>>>>>> 2e5e460375c7c9eb22e4b5c1bb054048e4805630
 
     if not request.user.is_authenticated:
         context = {
@@ -215,6 +218,7 @@ def add_dev(request):
         items = Device.objects.all()
 
 
+<<<<<<< HEAD
         # item = Item.objects.get(id=itemid)
 
 
@@ -228,6 +232,17 @@ def add_dev(request):
 
         context = {
             "items" : items,
+=======
+        compform = DevComp(instance=Item.objects.get(id=itemid))
+        cleanform = DevClean(instance=Item.objects.get(id=itemid))
+        checkform = DevCheck(instance=Item.objects.get(id=itemid))
+        locform = DevLoc(instance=Item.objects.get(id=itemid))
+
+        choicetest = ChoiceForm(instance=Item.objects.get(id=itemid))
+
+        context = {
+            "item" : item,
+>>>>>>> 2e5e460375c7c9eb22e4b5c1bb054048e4805630
             "compform" : compform,
             "cleanform" : cleanform,
             "checkform" : checkform,
@@ -404,6 +419,63 @@ def add_checkclean(request):
             "checking" : checking,
         }
         return render(request, "inv/add_chcl.html", context)
+
+
+def update(request):
+
+    if not request.user.is_authenticated:
+        context = {
+            "state": "home",
+            "error": "Please login and try again."
+            }
+        return render(request, "inv/index.html", context)
+
+    #otherwise, if they are logged in...
+    username = request.user
+    userid = username.id
+
+    try:
+
+        comps = request.POST.getlist('components')
+        checks = request.POST.getlist('checking')
+        cleans = request.POST.getlist('cleaning')
+
+        loc = request.POST["location"]
+        itemid = request.POST["itemid"]
+
+        myItem = Item.objects.get(id=itemid)
+        
+        myItem.checking.clear()
+        for x in checks:
+            myItem.checking.add(x)
+
+        myItem.components.clear()
+        for x in comps:
+            myItem.components.add(x)
+
+        myItem.cleaning.clear()
+        for x in cleans:
+            myItem.cleaning.add(x)
+
+        myItem.location_id = loc
+
+        myItem.save()
+
+        context = {
+            "item" : myItem
+        }
+
+        return render(request, "inv/item.html", context)
+        #return HttpResponseRedirect(reverse("item_view"))
+        #return HttpResponseRedirect('batch/%s' % batchid)
+
+    except Item.DoesNotExist:
+
+        context = {
+            "state": "loggedin",
+            "error": "Item not found, try again."
+            }
+        return render(request, "inv/index.html", context)
 
 
 def upload(request):

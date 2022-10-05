@@ -27,7 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = True
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['devices.wolba.ch','www.devices.wolba.ch','127.0.0.1']
+=======
+ALLOWED_HOSTS = ['devices.wolba.ch','www.devices.wolba.ch']
+>>>>>>> 2e5e460375c7c9eb22e4b5c1bb054048e4805630
 
 
 # Application definition
