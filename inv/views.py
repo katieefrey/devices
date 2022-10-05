@@ -375,35 +375,85 @@ def add_item(request):
 
 def add_comp(request):
 
+    if request.POST:
 
-    return render(request, "inv/add_comp.html", context)
+        print("post request!")
 
-def add_checkclean(request):
+        comp = request.POST.get("tocomp")
+        print(comp)
+
+        component = Component.objects.all()
+
+        newC = Component.objects.create(component=comp)
+        newC.save()
+
+        context = {
+            "component" : component,
+        }
+        return render(request, "inv/add_comp.html", context)
+
+    else:
+
+            component = Component.objects.all()
+            context = {
+                "component" : component,
+            }
+            return render(request, "inv/add_comp.html", context)
+
+
+def add_clean(request):
 
     if request.POST:
 
         print("post request!")
 
-        clean = request.POST.get["toclean"]
+        clean = request.POST.get("toclean")
         print(clean)
 
         cleaning = Cleaning.objects.all()
-        checking = Checking.objects.all()
+
+        newCL = Cleaning.objects.create(cleaning=clean)
+        newCL.save()
+
         context = {
             "cleaning" : cleaning,
-            "checking" : checking,
         }
-        return render(request, "inv/add_chcl.html", context)
+        return render(request, "inv/add_cl.html", context)
 
     else:
 
         cleaning = Cleaning.objects.all()
-        checking = Checking.objects.all()
         context = {
             "cleaning" : cleaning,
+        }
+        return render(request, "inv/add_cl.html", context)
+
+def add_check(request):
+
+    if request.POST:
+
+        print("post request!")
+
+        check = request.POST.get("tocheck")
+        print(check)
+
+        checking = Checking.objects.all()
+
+        newCH = Checking.objects.create(checking=check)
+        newCH.save()
+
+        context = {
             "checking" : checking,
         }
-        return render(request, "inv/add_chcl.html", context)
+        return render(request, "inv/add_ch.html", context)
+
+    else:
+
+        checking = Checking.objects.all()
+        context = {
+            "checking" : checking,
+        }
+        return render(request, "inv/add_ch.html", context)
 
 
 def upload(request):

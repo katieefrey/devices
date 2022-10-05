@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-6">
-            <h3>Add New Component</h3>
+            <h3>Add New Check</h3>
         </div>
         <div class="col-3">
             <form action="{% url 'index' %}" method="post">
@@ -36,21 +36,22 @@
             <br/>
             
 
-            <form action="{% url 'add_comp' %}" method="post">
+            <form action="{% url 'add_check' %}" method="post">
                 {% csrf_token %}
 
-                <strong>Components:</strong><br/>
-                {% for x in component %}
+                <strong>Things to Check:</strong><br/>
+                {% for x in checking %}
                     {{x}}<br/>
                 {% endfor %}
                 <div class="form-row">
                     <div class="form-group col-12">
-                        <input type="text" id="tocomp" class="tocomp" name="tocomp"> 
+                        <input type="text" id="tocheck" class="tocheck" name="tocheck"> 
                     </div>
-                    <button type="submit" id="addcomp" class="btn btn-info">add another</button>
+                    <button type="submit" id="addcheck" class="btn btn-info">add another</button>
                 </div>
-
+            
                 <br/><br/>
+
             </form>
 
         </div>

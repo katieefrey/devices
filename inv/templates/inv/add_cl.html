@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-6">
-            <h3>Add New Component</h3>
+            <h3>Add New Clean</h3>
         </div>
         <div class="col-3">
             <form action="{% url 'index' %}" method="post">
@@ -36,21 +36,22 @@
             <br/>
             
 
-            <form action="{% url 'add_comp' %}" method="post">
+            <form action="{% url 'add_clean' %}" method="post">
                 {% csrf_token %}
 
-                <strong>Components:</strong><br/>
-                {% for x in component %}
+                <strong>Things to Clean:</strong><br/>
+                {% for x in cleaning %}
                     {{x}}<br/>
                 {% endfor %}
                 <div class="form-row">
                     <div class="form-group col-12">
-                        <input type="text" id="tocomp" class="tocomp" name="tocomp"> 
+                        <input type="text" id="toclean" class="toclean" name="toclean"> 
                     </div>
-                    <button type="submit" id="addcomp" class="btn btn-info">add another</button>
+                    <button type="submit" id="addclean" class="btn btn-info">add another</button>
                 </div>
 
                 <br/><br/>
+
             </form>
 
         </div>
