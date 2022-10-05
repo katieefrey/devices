@@ -321,7 +321,7 @@
             {% for x in types %}
 
             <div id="main-premium-ressource">
-                <div class="premium-ressource"><a href="/type/{{x.object}}">{{x.name}}</a></div>
+                <div class="premium-ressource"><a href="/type/{{x.objtype}}">{{x.name}}</a></div>
             </div>
             {%endfor%}
             <div id="main-premium-ressource">
@@ -331,7 +331,7 @@
                 <div class="premium-ressource"><a href="http://library.cfa.harvard.edu">Wolbach Library</a></div>
             </div>
             <div id="main-premium-ressource">
-                <div class="premium-ressource"><a href="http://devices.altbibl.io/files/LibraryDevicesPolicy.pdf">Device Liability Policy</a></div>
+                <div class="premium-ressource"><a href="https://library.cfa.harvard.edu/files/wolbach/files/librarydevicespolicy.pdf" target="_blank">Device Liability Policy</a></div>
             </div>
         </div>
     </div>
@@ -339,7 +339,6 @@
     <!-- PORTFOLIO -->
 
     <div id="wrapper-container">
-
         <div class="container object">
 
             <div id="main-container-image">
@@ -364,7 +363,7 @@
 
                         <div class="wrapper-view">
                             <div class="icon-file"><img src="{% get_static_prefix %}dev/img/icon-search.svg" alt="" width="21" height="21" /></div>
-                            <div class="text-view">{{availphrase | safe}}</div>
+                            <div class="text-download"><a href="https://id.lib.harvard.edu/alma/{{device.hollis}}/catalog">check availability</a></div>
                         </div>
 
                         <div class="wrapper-avail">
@@ -374,12 +373,14 @@
                             <div class="text-desc">{{device.desc}}</div>
                         </div>
 
+                        {% if device.url %}
                         <div class="wrapper-download">
                             <div class="icon-download"><img src="{% get_static_prefix %}dev/img/external-link.png" alt="" width="19" height="26" /></div>
                             <div class="text-download">
                                 <button onClick="parent.location='{{device.url}}'" ; class="button2"><b>More information</b></button>
                             </div>
                         </div>
+                        {% endif %}
 
                         <div class="wrapper-download">
                             <div class="icon-download"><img src="{% get_static_prefix %}dev/img/external-link.png" alt="" width="19" height="26" /></div>
@@ -388,7 +389,7 @@
 
                         <div class="wrapper-download">
                             <div class="icon-download"><img src="{% get_static_prefix %}dev/img/external-link.png" alt="" width="19" height="26" /></div>
-                            <div class="text-download"><a href="http://devices.altbibl.io/files/LibraryDevicesPolicy.pdf"><b>Devices Liability Policy</b></a></div>
+                            <div class="text-download"><a href="https://library.cfa.harvard.edu/files/wolbach/files/librarydevicespolicy.pdf" target="_blank"><b>Devices Liability Policy</b></a></div>
                         </div>
                     </div>
                     <div class="post-reply"></div>
@@ -401,7 +402,7 @@
 
             <div id="wrapper-copyright">
                 <div class="copyright">
-                    <div class="copy-text object">Copyright © 2016. <a style="color:#ffffff;" href="/credit">Acknowledgements</a>. <a style="color:#ffffff;" href="https://library.cfa.harvard.edu/files/wolbach/files/librarydevicespolicy.pdf">Device Liability Policy</a>.</div>
+                    <div class="copy-text object">Copyright © 2016. <a style="color:#ffffff;" href="/credit">Acknowledgements</a>. <a style="color:#ffffff;" href="https://library.cfa.harvard.edu/files/wolbach/files/librarydevicespolicy.pdf" target="_blank">Device Liability Policy</a>.</div>
 
                 </div>
             </div>

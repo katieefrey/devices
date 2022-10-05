@@ -6,7 +6,7 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Wolbach Library Devices: TYPE</title>
+    <title>Wolbach Library Devices{% if type %}: {{type}}{% endif %} </title>
 
     <!-- Behavioral Meta Data -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -81,7 +81,7 @@
             {% for x in types %}
 
             <div id="main-premium-ressource">
-                <div class="premium-ressource"><a href="/type/{{x.object}}">{{x.name}}</a></div>
+                <div class="premium-ressource"><a href="/type/{{x.objtype}}">{{x.name}}</a></div>
             </div>
             {%endfor%}
             <div id="main-premium-ressource">
@@ -139,7 +139,7 @@
 
     <!-- SCRIPT -->
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="{% static 'dev/js/jquery.scrollTo.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'dev/js/jquery.localScroll.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'dev/js/jquery-animate-css-rotate-scale.js' %}"></script>

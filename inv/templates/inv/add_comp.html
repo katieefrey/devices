@@ -1,0 +1,117 @@
+{% extends "inv/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block nav-add %}active{% endblock %}
+
+{% block title %}
+    Wolbach Devices Inventory
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h1>{{item.name}}</h1> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <h3>Add New Item</h3>
+        </div>
+        <div class="col-3">
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                <!-- <input type="hidden" name="inputBarcode" value="{{item.barcode}}"> -->
+                <button type="submit" class="btn btn-warning">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <br/>
+            <form action="{% url 'add_item' %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-row">
+
+                    <div class="form-group col-12">
+                    <label for="device_id">Select Device: </label>
+                    <select id="device_id" name="device_id">
+                        {% for x in items %}
+                            <option value="{{x.id}}">{{x.fullname}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group col-12">
+
+                        <label for="barcode">Barcode:</label>
+                        <input type="text" id="barcode" name="barcode"> 
+                    </div>
+                
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-3">
+                        <!-- {{ compform|crispy }} -->
+                        {{ choiceform|crispy }}
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        {{ checkform|crispy }}
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        {{ cleanform|crispy }}
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    {{ locform|crispy }}
+                    </div>
+                </div>
+<!-- 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    {{ choiceform|crispy }}
+                    </div>
+                </div> -->
+
+                </div>
+                <input type="hidden" name="itemid" value="{{item.id}}">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            &nbsp;<br/>
+            &nbsp;<br/>
+            &nbsp;<br/>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

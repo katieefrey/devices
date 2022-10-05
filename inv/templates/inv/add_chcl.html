@@ -1,0 +1,92 @@
+{% extends "inv/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block nav-add %}active{% endblock %}
+
+{% block title %}
+    Wolbach Devices Inventory
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h1>{{item.name}}</h1> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <h3>Add New Item</h3>
+        </div>
+        <div class="col-3">
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                <!-- <input type="hidden" name="inputBarcode" value="{{item.barcode}}"> -->
+                <button type="submit" class="btn btn-warning">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <br/>
+            
+
+            <form action="{% url 'add_checkclean' %}" method="post">
+                {% csrf_token %}
+
+                <strong>Things to Clean:</strong><br/>
+                {% for x in cleaning %}
+                    {{x}}<br/>
+                {% endfor %}
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <input type="text" id="toclean" class="toclean" name="toclean"> 
+                    </div>
+                    <button type="button" id="addclean" class="btn btn-info">add another</button>
+                </div>
+
+                <br/><br/>
+
+                <strong>Things to Check:</strong><br/>
+                {% for x in checking %}
+                    {{x}}<br/>
+                {% endfor %}
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <input type="text" id="tocheck" class="tocheck" name="tocheck"> 
+                    </div>
+                    <button type="button" id="addcheck" class="btn btn-info">add another</button>
+                </div>
+            
+                <br/><br/>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            &nbsp;<br/>
+            &nbsp;<br/>
+            &nbsp;<br/>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}

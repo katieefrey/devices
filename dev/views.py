@@ -16,9 +16,9 @@ def checkforlist(thing):
 
 def index(request):
     
-    all_types = ObjType.objects.all().order_by('name')
+    all_types = ObjType.objects.all().order_by('order')
 
-    all_devices = Device.objects.order_by('-date').all()
+    all_devices = Device.objects.order_by('-date').filter(show=1)
 
     context = { "types"     :   all_types,
                 "devices"   :   all_devices,
@@ -30,13 +30,14 @@ def index(request):
 
 def typepage(request,typepage):
 
-    all_types = ObjType.objects.all().order_by('name')
+    all_types = ObjType.objects.all().order_by('order')
     thisobj = ObjType.objects.get(objtype=typepage)
-    objlist = Device.objects.filter(objtype=thisobj.id).order_by('-date')
+    objlist = Device.objects.filter(objtype=thisobj.id, show=1).order_by('-date')
 
     context = { "types"     :   all_types,
                 "devices"   :   objlist,
                 "objtype"   :   typepage,
+                "type"      :   thisobj.name,
             }
 
     return render(request,"dev/type.html",context)
@@ -44,38 +45,42 @@ def typepage(request,typepage):
 
 def devname(request,devname):
 
-    all_types = ObjType.objects.all().order_by('name')
-    device = Device.objects.get(name=devname)
+    all_types = ObjType.objects.all().order_by('order')
 
-    url = "http://webservices.lib.harvard.edu/rest/avail/hollis/"+device.hollis+"?jsonp=result"
-    content = requests.get(url)
-    k = json.loads(content.text[7:-2])
+    try: 
+        device = Device.objects.get(name=devname)
 
-    item = k["availability"]["items"]["item"]
-
-    itemlist = checkforlist(item)
-
-    for x in itemlist:
-        if "WOL" in x['library']:
-            status = x["status"]
-            nonAvail = x["nonAvail"]
-            totalItems =x["totalItems"]
-
-            numAvail = totalItems - nonAvail
-
-            if numAvail == 0:
-                availphrase = "currently unavailable"
-            elif numAvail > 0:
-                availphrase = "<strong>avaialble</strong> for checkout"
-            else:
-                availphrase = "cannot determine availability"
-        
-        else:
-            availphrase = "cannot determine availability"
+        print(device)
 
         context = { "types"     :   all_types,
-                    "device"    :   device,
-                    "availphrase" : availphrase,
+                    "device"    :   device
                 }
 
-    return render(request,"dev/device.html",context)
+        print (context)
+
+        return render(request,"dev/device.html",context)
+
+    except:
+
+        all_devices = Device.objects.order_by('-date').all()
+
+        context = { "types"     :   all_types,
+                    "devices"   :   all_devices,
+                    "objtype"   :   "",
+                }        
+
+        return render(request, "dev/type.html", context)
+
+
+def borrowingpolicy(request):
+    
+    all_types = ObjType.objects.all().order_by('order')
+
+    all_devices = Device.objects.order_by('-date').all()
+
+    context = { "types"     :   all_types,
+                "devices"   :   all_devices,
+                "objtype"   :   "",
+            }
+
+    return render(request,"dev/borrowingpolicy.html",context)

@@ -5,6 +5,7 @@ class ObjType(models.Model):
 
     objtype = models.CharField(max_length=50)
     name = models.CharField(max_length=50,null=True, blank=True)
+    order = models.IntegerField(null=True,blank=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -19,6 +20,7 @@ class Device(models.Model):
     date = models.DateField()
     url = models.CharField(max_length=200,null=True, blank=True)
     objtype = models.ForeignKey(ObjType, on_delete=models.CASCADE, null=True, blank=True)
+    show = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.objtype}: {self.fullname}"

@@ -29,7 +29,7 @@
 
                     {% if request.user.is_superuser %}
                         <li class="nav-item {% block nav-admin %}{% endblock %}">
-                            <a class="nav-link" href="administrate">Admin</a>
+                            <a class="nav-link" href="/admin/">Admin</a>
                         </li>
                     {% endif %}
 
@@ -38,9 +38,20 @@
                             <a class="nav-link" href="/inv/">Check Item</a>
                         </li>
 
-                        <li class="nav-item {% block nav-add %}{% endblock %}">
-                            <a class="nav-link" href="add_dev">Add Device</a>
-                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle {% block nav-add %}{% endblock %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Manage Devices
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="add_dev">Add Item</a>
+                              <a class="dropdown-item" href="add_newdev">Add New Device</a>
+                              <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="add_comp">Add Component</a>
+                                <a class="dropdown-item" href="add_checkclean">Add Check/Clean</a>
+                            </div>
+                          </li>
 
                         <li class="nav-item {% block nav-lout %}{% endblock %}">
                             <a class="nav-link" href="logout">Logout</a>
